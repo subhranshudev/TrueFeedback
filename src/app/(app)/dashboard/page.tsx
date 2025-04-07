@@ -35,7 +35,7 @@ function Page() {
 
   const { register, watch, setValue } = form;
 
-  const acceptMessages = watch("acceptMessages");
+  const acceptMessages = watch("acceptMessages");  // Here we are telling react-hook-form to watch the "acceptmessage" state i.e its corresponding field also
 
   const fetchAcceptMessage = useCallback(async () => {
     setIsSwitchLoading(true);
@@ -172,7 +172,7 @@ function Page() {
         {messages.length > 0 ? (
           messages.map((message, index) => (
             <MessageCard
-              key={message._id}
+              key={index}
               message={message}
               onMessageDelete={handleDeleteMessage}
             />

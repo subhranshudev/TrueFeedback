@@ -36,9 +36,9 @@ type MessageCardProps = {
 
 function MessageCard({ message, onMessageDelete}: MessageCardProps) {
     const handleDeleteConfirm = async () => {
-        const response = await axios.delete<ApiResponse>(`/api/delete-message/${message._id}`)
+        const response = await axios.delete<ApiResponse>(`/api/delete-message/${message._id}`) // Delete of message from databse or backend
         toast(response.data.message);
-        onMessageDelete(message?._id);
+        onMessageDelete(message._id);  // Delete of message from ui or frontend
         
     } 
 

@@ -34,26 +34,26 @@ function Page() {
   });
 
   const onSubmit = async (data: z.infer<typeof signinSchema>) => {
-    const result = await signIn('credentials', {
-        redirect: false,
-        identifier: data.identifier,
-        password: data.password
-    })
+    const result = await signIn("credentials", {
+      // For signin we are using next-auth, so there is no need of axios. next-auth has its own methods
+      redirect: false,
+      identifier: data.identifier,
+      password: data.password,
+    });
 
     if (result?.error) {
       if (result.error === "CredentialsSignin") {
-         toast.error("Login Failed", {description: "Incorrect Username or password"});
+        toast.error("Login Failed", {
+          description: "Incorrect Username or password",
+        });
       } else {
-         toast.error("Error", {description: result.error});
+        toast.error("Error", { description: result.error });
       }
-       
-    } 
-    
-    if (result?.url) {
-      router.replace("/dashboard")
     }
 
-
+    if (result?.url) {
+      router.replace("/dashboard");
+    }
   };
 
   return (
@@ -67,7 +67,6 @@ function Page() {
         </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-
             <FormField
               name="identifier"
               control={form.control}
@@ -75,7 +74,7 @@ function Page() {
                 <FormItem>
                   <FormLabel>Email/Username</FormLabel>
                   <FormControl>
-                    <Input placeholder="email" {...field} />
+                    <Input placeholder="email/username" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -96,11 +95,7 @@ function Page() {
               )}
             />
 
-            <Button type="submit">
-
-                Signin
-              
-            </Button>
+            <Button type="submit">Signin</Button>
           </form>
         </Form>
         <div>
